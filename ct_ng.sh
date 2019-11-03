@@ -20,19 +20,19 @@ IF_LINUX_CUSTOM=y
 DIR_LINUX_CUSTOM=/home/lvbing/tool/linux-stable
 #SAMPLES=arm-unknown-eabi
 
-
 # -------------------------------------------------
 # crosstool 编译依赖:
-# gperf 是完美哈希函数生成器
+# gperf 是完美哈希函数生成器;
 # bison,flex 是用来生成语法和词法分析器；
-# texinfo,man 类似，用来读取帮助文档；
+# texinfo,man 类似，用来读取帮助文档
 # automake 是帮助生成Makefile的工具；
 # libtool 帮助在编译过程中处理库的依赖关系，自动搜索路径；
-# gawk linux下用于文本处理和模式匹配的工具;
+# gawk linux下用于文本处理和模式匹配的工具.
 # sudo apt-get install gperf flex bison texinfo gawk libtool automake libncurses5-dev g++ help2man
 install_package(){
 	sudo apt-get install help2man
 }
+
 # -------------------------------------------------
 # download : crosstool-ng
 # https://github.com/crosstool-ng/crosstool-ng.git
@@ -84,7 +84,9 @@ menuconfig_ct_ng(){
 		echo CT_PREFIX_DIR=\"$DIR_TOOL_PREFIX\"   >> $DIR_PROJECT/.config
 		echo CT_TARGET_VENDOR=\"$TARGET_VENDOR\" >> $DIR_PROJECT/.config
 		echo CT_LOCAL_TARBALLS_DIR=\"$DIR_TARBALLS\" >> $DIR_PROJECT/.config
-		echo CT_LOG_ALL=$IF_LOG_ALL >> $DIR_PROJECT/.config
+		if [ ! -n "$IF_LOG_ALL" ]; then
+			echo CT_LOG_ALL=$IF_LOG_ALL >> $DIR_PROJECT/.config
+		fi
 		# os set
 		#echo CT_KERNEL_linux=$IF_KERNEL_linux >> $DIR_PROJECT/.config
 		#echo CT_KERNEL_LINUX_CUSTOM=$IF_LINUX_CUSTOM >> $DIR_PROJECT/.config
